@@ -1,6 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { LayerBackground, M4, M6 } from "./generated-tokens/tokens";
+import {
+  LayerBackground,
+  M4,
+  M6,
+  ObjectBrandSubtleDefault,
+  FaceDefault,
+  FontFamiliesGeist,
+  LayerBackgroundPressed,
+} from "./generated-tokens/tokens";
 
 export default function EnterAmount({ amount = "0.00", onMaxPress }) {
   return (
@@ -25,14 +33,17 @@ export default function EnterAmount({ amount = "0.00", onMaxPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    backgroundColor: LayerBackground,
-    paddingTop: Number(M6),
-    paddingBottom: Number(M6),
+    height: "100%",
+    width: "100%",
+    backgroundColor: LayerBackgroundPressed,
+    alignItems: "flex-start	",
+    justifyContent: "center",
     paddingHorizontal: Number(M4),
+    paddingVertical: Number(M6),
+    borderRadius: 12, // Optional for pill/modal look
   },
   topContextContainer: {
-    marginBottom: Number(M4),
+    marginBottom: Number(M6),
     alignItems: "center",
   },
   topContextText: {
@@ -40,7 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   amountContainer: {
-    marginBottom: Number(M4),
+    marginBottom: Number(M6),
     alignItems: "center",
   },
   amountText: {
@@ -52,14 +63,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   maxButton: {
-    backgroundColor: "#eee",
-    borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    backgroundColor: ObjectBrandSubtleDefault,
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
   },
   maxButtonText: {
-    color: "#222",
-    fontWeight: "bold",
-    fontSize: 16,
+    color: FaceDefault,
+    fontWeight: "normal",
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: FontFamiliesGeist,
   },
 });

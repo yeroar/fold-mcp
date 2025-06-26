@@ -1,4 +1,5 @@
 import CustomKeyboard from "./components/CustomKeyboard";
+import EnterAmount from "./components/EnterAmount";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
@@ -13,9 +14,12 @@ export default function App() {
       setInput((prev) => prev + key);
     }
   };
-  // Only render the keyboard for visual inspection, anchored to bottom center
+  const handleMaxPress = () => {
+    setInput("MAX");
+  };
   return (
     <View style={styles.container}>
+      <EnterAmount amount={input} onMaxPress={handleMaxPress} />
       <View style={styles.keyboardAnchor}>
         <CustomKeyboard onKeyPress={handleKeyPress} />
       </View>
@@ -30,7 +34,6 @@ const styles = StyleSheet.create({
     backgroundColor: LayerBackground,
   },
   keyboardAnchor: {
-    flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
   },
