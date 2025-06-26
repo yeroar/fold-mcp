@@ -34,46 +34,44 @@ export default function CustomKeyboard({ onKeyPress }) {
   });
 
   return (
-    <View style={styles.anchorContainer}>
-      <View style={styles.outer}>
-        <View style={styles.keyboardBlock}>
-          <View style={styles.container}>
-            {rows.map((row, rowIdx) => (
-              <View key={rowIdx} style={styles.row}>
-                {row.map((key, idx) =>
-                  key ? (
-                    <View
-                      key={key + idx}
-                      style={[styles.cell, { width: buttonWidth }]}
-                    >
-                      {key === "←" ? (
-                        <KeyboardButton
-                          label={
-                            <Image
-                              source={{ uri: IconBackspace }}
-                              style={{ width: 24, height: 24 }}
-                              resizeMode="contain"
-                            />
-                          }
-                          onPress={() => onKeyPress(key)}
-                        />
-                      ) : (
-                        <KeyboardButton
-                          label={key}
-                          onPress={() => onKeyPress(key)}
-                        />
-                      )}
-                    </View>
-                  ) : (
-                    <View
-                      key={"empty" + idx}
-                      style={[styles.cell, { width: buttonWidth }]}
-                    />
-                  )
-                )}
-              </View>
-            ))}
-          </View>
+    <View style={styles.outer}>
+      <View style={styles.keyboardBlock}>
+        <View style={styles.container}>
+          {rows.map((row, rowIdx) => (
+            <View key={rowIdx} style={styles.row}>
+              {row.map((key, idx) =>
+                key ? (
+                  <View
+                    key={key + idx}
+                    style={[styles.cell, { width: buttonWidth }]}
+                  >
+                    {key === "←" ? (
+                      <KeyboardButton
+                        label={
+                          <Image
+                            source={{ uri: IconBackspace }}
+                            style={{ width: 24, height: 24 }}
+                            resizeMode="contain"
+                          />
+                        }
+                        onPress={() => onKeyPress(key)}
+                      />
+                    ) : (
+                      <KeyboardButton
+                        label={key}
+                        onPress={() => onKeyPress(key)}
+                      />
+                    )}
+                  </View>
+                ) : (
+                  <View
+                    key={"empty" + idx}
+                    style={[styles.cell, { width: buttonWidth }]}
+                  />
+                )
+              )}
+            </View>
+          ))}
         </View>
       </View>
     </View>
@@ -81,15 +79,8 @@ export default function CustomKeyboard({ onKeyPress }) {
 }
 
 const styles = StyleSheet.create({
-  anchorContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    alignItems: "center",
-    backgroundColor: LayerBackground,
-  },
   outer: {
+    width: "100%",
     alignItems: "center",
     paddingLeft: Number(M4),
     paddingRight: Number(M4),
@@ -97,6 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: LayerBackground,
   },
   keyboardBlock: {
+    width: "100%",
     alignSelf: "center",
     backgroundColor: LayerBackground,
     borderRadius: Number(M6),
