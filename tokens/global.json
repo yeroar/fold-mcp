@@ -315,9 +315,13 @@
   },
   "icon": {
     "backspace": {
-      "value": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWRlbGV0ZS1pY29uIGx1Y2lkZS1kZWxldGUiPjxwYXRoIGQ9Ik0xMCA1YTIgMiAwIDAgMC0xLjM0NC41MTlsLTYuMzI4IDUuNzRhMSAxIDAgMCAwIDAgMS40ODFsNi4zMjggNS43NDFBMiAyIDAgMCAwIDEwIDE5aDEwYTIgMiAwIDAgMCAyLTJWN2EyIDIgMCAwIDAtMi0yeiIvPjxwYXRoIGQ9Im0xMiA5IDYgNiIvPjxwYXRoIGQ9Im0xOCA5LTYgNiIvPjwvc3ZnPg==",
+      "value": "https://cdn-icons-png.flaticon.com/512/318/318218.png",
       "type": "asset"
     }
+  },
+  "m-3": {
+    "value": "12",
+    "type": "spacing"
   },
   "m-4": {
     "value": "16",
@@ -325,6 +329,10 @@
   },
   "m-6": {
     "value": "24",
+    "type": "spacing"
+  },
+  "m-8": {
+    "value": "48",
     "type": "spacing"
   }
 }
