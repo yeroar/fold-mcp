@@ -1,0 +1,6 @@
+{
+  "parser": "react",
+  "include": [
+    "mcp-btc/*.js"
+  ]
+}
