@@ -1,5 +1,6 @@
 import CustomKeyboard from "./components/CustomKeyboard";
-import EnterAmount from "./components/EnterAmount";
+// import EnterAmount from "./components/EnterAmount";
+import CenterTextContainer from "./components/CenterTextContainer";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
@@ -19,7 +20,10 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      <EnterAmount amount={input} onMaxPress={handleMaxPress} />
+      <View style={styles.amountWrapper}>
+        {/* <EnterAmount amount={input} onMaxPress={handleMaxPress} /> */}
+        <CenterTextContainer text="Centered Text" />
+      </View>
       <View style={styles.keyboardAnchor}>
         <CustomKeyboard onKeyPress={handleKeyPress} />
       </View>
@@ -32,9 +36,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: LayerBackground,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  amountWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
   },
   keyboardAnchor: {
-    justifyContent: "flex-end",
+    width: "100%",
     alignItems: "center",
   },
 });
