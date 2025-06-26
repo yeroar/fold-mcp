@@ -1,8 +1,8 @@
 import CustomKeyboard from "./components/CustomKeyboard";
-import AmountInputDisplay from "./components/AmountInputDisplay";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { LayerBackground } from "./components/generated-tokens/tokens";
 
 export default function App() {
   const [input, setInput] = useState("");
@@ -13,10 +13,12 @@ export default function App() {
       setInput((prev) => prev + key);
     }
   };
+  // Only render the keyboard for visual inspection, anchored to bottom center
   return (
     <View style={styles.container}>
-      <AmountInputDisplay amount={input} />
-      <CustomKeyboard onKeyPress={handleKeyPress} />
+      <View style={styles.keyboardAnchor}>
+        <CustomKeyboard onKeyPress={handleKeyPress} />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -25,13 +27,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: LayerBackground,
   },
-  input: {
-    fontSize: 32,
-    marginBottom: 32,
-    letterSpacing: 2,
+  keyboardAnchor: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
 });

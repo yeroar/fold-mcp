@@ -341,4 +341,6 @@ export const TextDecorationNone = "none";
 export const ParagraphIndent0 = "0px";
 export const M0 = "0";
 export const IconBackspace =
-  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWRlbGV0ZS1pY29uIGx1Y2lkZS1kZWxldGUiPjxwYXRoIGQ9Ik0xMCA1YTIgMiAwIDAgMC0xLjM0NC41MTlsLTYuMzI4IDUuNzRhMSAxIDAgMCAwIDAgMS40ODFsNi4zMjggNS43NDFBMiAyIDAgMCAwIDEwIDE5aDEwYTIgMiAwIDAgMCAyLTJWN2EyIDIgMCAwIDAtMi0yeiIvPjxwYXRoIGQ9Im0xMiA5IDYgNiIvPjxwYXRoIGQ9Im0xOCA5LTYgNiIvPjwvc3ZnPg==";
+  "https://cdn-icons-png.flaticon.com/512/318/318218.png";
+export const M4 = "16";
+export const M6 = "24";
