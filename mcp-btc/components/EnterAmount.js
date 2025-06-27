@@ -28,7 +28,7 @@ export default function EnterAmount({
   if (!isNaN(parsed)) {
     btc = parsed / 105345;
   }
-  const btcDisplay = `~ ${btc.toFixed(4)}BTC`;
+  const btcDisplay = `~ ${btc.toFixed(7)}BTC`;
   // Format max value for display
   const formattedMax = Number(maxValue)
     .toLocaleString(undefined, {
