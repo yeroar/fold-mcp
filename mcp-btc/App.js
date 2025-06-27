@@ -1,10 +1,14 @@
 import CustomKeyboard from "./components/CustomKeyboard";
 import EnterAmount from "./components/EnterAmount";
-// import CenterTextContainer from "./components/CenterTextContainer";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import { LayerBackground } from "./components/generated-tokens/tokens";
+import {
+  LayerBackground,
+  M4,
+  ObjectBrandBoldDefault,
+} from "./components/generated-tokens/tokens";
+import TokenButton from "./components/TokenButton";
 
 export default function App() {
   const [input, setInput] = useState("");
@@ -18,14 +22,21 @@ export default function App() {
   const handleMaxPress = (value) => {
     setInput(value);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.amountWrapper}>
         <EnterAmount amount={input} onMaxPress={handleMaxPress} />
       </View>
+
       <View style={styles.keyboardAnchor}>
         <CustomKeyboard onKeyPress={handleKeyPress} />
       </View>
+
+      <View style={styles.tokenButtonRow}>
+        <TokenButton style={{ width: "100%" }} />
+      </View>
+
       <StatusBar style="auto" />
     </View>
   );
@@ -49,5 +60,13 @@ const styles = StyleSheet.create({
   keyboardAnchor: {
     // width: "100%", // Remove for stretch
     alignItems: "center",
+  },
+  tokenButtonRow: {
+    width: "100%",
+    paddingHorizontal: Number(M4),
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 40,
+    marginTop: 32,
   },
 });
