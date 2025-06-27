@@ -179,6 +179,7 @@ export const LineHeights700 = "28";
 export const LineHeights800 = "32";
 export const LineHeights900 = "36";
 export const LineHeights1000 = "40";
+export const LineHeights1750 = "70";
 export const FontWeightsGeist0 = "Medium";
 export const FontWeightsGeist1 = "Regular";
 export const FontWeightsGeist2 = "Light";
@@ -191,6 +192,7 @@ export const FontSize600 = "24";
 export const FontSize700 = "28";
 export const FontSize800 = "32";
 export const FontSize1000 = "40";
+export const FontSize1750 = "70";
 export const LetterSpacing0 = "0";
 export const ParagraphSpacing0 = "0";
 export const TypographyTitle01 = {
@@ -306,8 +308,8 @@ export const TypographyButton02 = {
 export const TypographyBalance01 = {
   fontFamily: "Geist",
   fontWeight: "Light",
-  lineHeight: "40",
-  fontSize: "40",
+  lineHeight: "70",
+  fontSize: "70",
   letterSpacing: "0",
   paragraphSpacing: "0",
   paragraphIndent: "0px",
