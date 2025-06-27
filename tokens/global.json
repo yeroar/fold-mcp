@@ -260,8 +260,8 @@
       "value": {
         "fontFamily": "{fontFamilies.geist}",
         "fontWeight": "{fontWeights.geist-2}",
-        "lineHeight": "{lineHeights.1750}",
-        "fontSize": "{fontSize.1750}",
+        "lineHeight": "{lineHeights.1000}",
+        "fontSize": "{fontSize.1000}",
         "letterSpacing": "{letterSpacing.0}",
         "paragraphSpacing": "{paragraphSpacing.0}",
         "paragraphIndent": "{paragraphIndent.0}",
