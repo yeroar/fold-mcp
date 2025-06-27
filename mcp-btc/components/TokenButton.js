@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import {
   ObjectBrandBoldDefault,
+  ObjectDisabled,
   FaceDefault,
   FontFamiliesGeist,
   M3,
@@ -15,13 +16,19 @@ export default function TokenButton({
   onPress,
   style,
   textStyle,
+  disabled = false,
   ...props
 }) {
   return (
     <TouchableOpacity
-      style={[styles.button, style]}
-      onPress={onPress}
+      style={[
+        styles.button,
+        style,
+        disabled && { backgroundColor: ObjectDisabled },
+      ]}
+      onPress={disabled ? undefined : onPress}
       activeOpacity={0.8}
+      disabled={disabled}
       {...props}
     >
       <Text style={[styles.text, textStyle]}>{title}</Text>

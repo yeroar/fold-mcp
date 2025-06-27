@@ -7,6 +7,7 @@ import {
   LayerBackground,
   M4,
   ObjectBrandBoldDefault,
+  ObjectDisabled,
 } from "./components/generated-tokens/tokens";
 import TokenButton from "./components/TokenButton";
 import {
@@ -16,6 +17,11 @@ import {
 
 export default function App() {
   const [input, setInput] = useState("");
+
+  // Calculate if the preview button should be disabled (empty or < $10.00)
+  const cleaned = input.replace(/[^0-9.]/g, "");
+  const parsedAmount = parseFloat(cleaned);
+  const isPreviewDisabled = isNaN(parsedAmount) || parsedAmount < 10;
 
   // Pass key presses from custom keyboard to EnterAmount
   const handleCustomKeyPress = (key) => {
@@ -53,7 +59,15 @@ export default function App() {
       </View>
 
       <View style={styles.tokenButtonRow}>
-        <TokenButton style={{ width: "100%" }} />
+        <TokenButton
+          style={{
+            width: "100%",
+            backgroundColor: isPreviewDisabled
+              ? ObjectDisabled
+              : ObjectBrandBoldDefault,
+          }}
+          disabled={isPreviewDisabled}
+        />
       </View>
 
       <StatusBar style="auto" />

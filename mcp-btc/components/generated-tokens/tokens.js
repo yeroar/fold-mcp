@@ -308,8 +308,8 @@ export const TypographyButton02 = {
 export const TypographyBalance01 = {
   fontFamily: "Geist",
   fontWeight: "Light",
-  lineHeight: "70",
-  fontSize: "70",
+  lineHeight: "40",
+  fontSize: "40",
   letterSpacing: "0",
   paragraphSpacing: "0",
   paragraphIndent: "0px",
