@@ -327,19 +327,19 @@
       "type": "asset"
     }
   },
-  "m-3": {
+  "m-300": {
     "value": "12",
     "type": "spacing"
   },
-  "m-4": {
+  "m-400": {
     "value": "16",
     "type": "spacing"
   },
-  "m-6": {
+  "m-600": {
     "value": "24",
     "type": "spacing"
   },
-  "m-8": {
+  "m-1200": {
     "value": "48",
     "type": "spacing"
   }
