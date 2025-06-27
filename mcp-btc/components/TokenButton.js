@@ -6,6 +6,7 @@ import {
   FontFamiliesGeist,
   M3,
   M0,
+  M8,
   TypographyButton01,
 } from "./generated-tokens/tokens";
 

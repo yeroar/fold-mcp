@@ -9,28 +9,40 @@ import {
   ObjectBrandBoldDefault,
 } from "./components/generated-tokens/tokens";
 import TokenButton from "./components/TokenButton";
+import { formatAmountInput } from "./components/utils/formatAmountInput";
 
 export default function App() {
   const [input, setInput] = useState("");
-  const handleKeyPress = (key) => {
-    if (key === "←") {
-      setInput((prev) => prev.slice(0, -1));
-    } else {
-      setInput((prev) => prev + key);
-    }
+
+  // Pass key presses from custom keyboard to EnterAmount
+  const handleCustomKeyPress = (key) => {
+    setInput((prev) => {
+      let text = prev;
+      if (key === "←") {
+        text = text.slice(0, -1);
+      } else {
+        text += key;
+      }
+      return formatAmountInput(text, key);
+    });
   };
   const handleMaxPress = (value) => {
-    setInput(value);
+    setInput(formatAmountInput(value));
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.amountWrapper}>
-        <EnterAmount amount={input} onMaxPress={handleMaxPress} />
+        <EnterAmount
+          amount={input}
+          onMaxPress={handleMaxPress}
+          onCustomKeyPress={handleCustomKeyPress}
+          onAmountChange={setInput}
+        />
       </View>
 
       <View style={styles.keyboardAnchor}>
-        <CustomKeyboard onKeyPress={handleKeyPress} />
+        <CustomKeyboard onKeyPress={handleCustomKeyPress} />
       </View>
 
       <View style={styles.tokenButtonRow}>

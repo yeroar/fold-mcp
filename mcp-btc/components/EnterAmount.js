@@ -1,5 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import {
   LayerBackground,
   M4,
@@ -9,11 +14,14 @@ import {
   FontFamiliesGeist,
   LayerBackgroundPressed,
 } from "./generated-tokens/tokens";
+import { formatAmountInput } from "./utils/formatAmountInput";
+import MaxButton from "./MaxButton";
 
 export default function EnterAmount({
   amount = "0.00",
   maxValue = 1000,
   onMaxPress,
+  onAmountChange,
 }) {
   // Parse amount as float, divide by 105.345, and format to 4 decimals
   let btc = 0;
@@ -23,10 +31,16 @@ export default function EnterAmount({
   }
   const btcDisplay = `~ ${btc.toFixed(4)}BTC`;
   // Format max value for display
-  const formattedMax = Number(maxValue).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+  const formattedMax = Number(maxValue)
+    .toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+    .replace(/,/g, "."); // always use dot as decimal
+  // Handler for input changes (enforce 2 decimals, shift if more)
+  const handleChange = (text) => {
+    if (onAmountChange) onAmountChange(formatAmountInput(text));
+  };
   return (
     <View style={styles.container}>
       {/* Top context: fake calculation */}
@@ -35,16 +49,23 @@ export default function EnterAmount({
       </View>
       {/* Input amount */}
       <View style={styles.amountContainer}>
-        <Text style={styles.amountText}>{amount}</Text>
+        <TextInput
+          style={styles.amountText}
+          value={amount}
+          onChangeText={handleChange}
+          keyboardType="numeric"
+          placeholder="0"
+          placeholderTextColor={FaceDefault}
+          maxLength={12}
+          accessibilityLabel="Amount input"
+        />
       </View>
       {/* Bottom context: Max button */}
       <View style={styles.bottomContextContainer}>
-        <TouchableOpacity
-          style={styles.maxButton}
+        <MaxButton
           onPress={() => onMaxPress(formattedMax)}
-        >
-          <Text style={styles.maxButtonText}>{`Max: $${formattedMax}`}</Text>
-        </TouchableOpacity>
+          label={`Max: $${formattedMax}`}
+        />
       </View>
     </View>
   );
@@ -80,18 +101,5 @@ const styles = StyleSheet.create({
   },
   bottomContextContainer: {
     alignItems: "center",
-  },
-  maxButton: {
-    backgroundColor: ObjectBrandSubtleDefault,
-    borderRadius: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-  },
-  maxButtonText: {
-    color: FaceDefault,
-    fontWeight: "normal",
-    fontSize: 12,
-    lineHeight: 16,
-    fontFamily: FontFamiliesGeist,
   },
 });
