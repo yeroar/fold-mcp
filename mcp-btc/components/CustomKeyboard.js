@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: Number(M4),
     paddingRight: Number(M4),
-    paddingBottom: Number(M6),
     backgroundColor: LayerBackground,
   },
   keyboardBlock: {
