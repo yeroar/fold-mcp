@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import {
   LayerBackground,
   M4,
@@ -13,6 +8,10 @@ import {
   FaceDefault,
   FontFamiliesGeist,
   LayerBackgroundPressed,
+  TypographyBalance01,
+  FaceDisabled,
+  FaceSubtlest,
+  TypographyBody02,
 } from "./generated-tokens/tokens";
 import { formatAmountInput } from "./utils/formatAmountInput";
 import MaxButton from "./MaxButton";
@@ -51,13 +50,16 @@ export default function EnterAmount({
       <View style={styles.amountContainer}>
         <TextInput
           style={styles.amountText}
-          value={amount}
-          onChangeText={handleChange}
+          value={`$${amount.length === 0 ? "0" : amount}`}
+          onChangeText={(text) => {
+            // remove any leading $ if user edits it
+            const cleaned = text.replace(/^\$/, "");
+            handleChange(cleaned);
+          }}
           keyboardType="numeric"
-          placeholder="0"
-          placeholderTextColor={FaceDefault}
           maxLength={12}
           accessibilityLabel="Amount input"
+          textAlign="center"
         />
       </View>
       {/* Bottom context: Max button */}
@@ -87,17 +89,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   topContextText: {
-    color: "#888",
-    fontSize: 16,
+    fontFamily: TypographyBody02.fontFamily,
+    fontWeight:
+      TypographyBody02.fontWeight === "Regular"
+        ? "400"
+        : TypographyBody02.fontWeight,
+    fontSize: Number(TypographyBody02.fontSize),
+    lineHeight: Number(TypographyBody02.lineHeight),
+    color: FaceSubtlest,
   },
   amountContainer: {
-    marginBottom: Number(M6),
+    marginBottom: Number(M4),
     alignItems: "center",
   },
   amountText: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#222",
+    fontFamily: TypographyBalance01.fontFamily,
+    fontWeight:
+      TypographyBalance01.fontWeight === "Light"
+        ? "300"
+        : TypographyBalance01.fontWeight,
+    fontSize: Number(TypographyBalance01.fontSize),
+    lineHeight: Number(TypographyBalance01.lineHeight),
+    color: FaceDefault,
   },
   bottomContextContainer: {
     alignItems: "center",

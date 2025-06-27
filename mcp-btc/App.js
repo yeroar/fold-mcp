@@ -9,7 +9,10 @@ import {
   ObjectBrandBoldDefault,
 } from "./components/generated-tokens/tokens";
 import TokenButton from "./components/TokenButton";
-import { formatAmountInput } from "./components/utils/formatAmountInput";
+import {
+  formatAmountInput,
+  prependAmountInput,
+} from "./components/utils/formatAmountInput";
 
 export default function App() {
   const [input, setInput] = useState("");
@@ -20,10 +23,14 @@ export default function App() {
       let text = prev;
       if (key === "←") {
         text = text.slice(0, -1);
+      } else if (/^[0-9]$/.test(key) && /^0\.\d{2}$/.test(text)) {
+        // Prepend digit if current is '0.N' or '0.NN'
+        text = prependAmountInput(key, text);
       } else {
         text += key;
+        text = formatAmountInput(text);
       }
-      return formatAmountInput(text, key);
+      return text;
     });
   };
   const handleMaxPress = (value) => {
