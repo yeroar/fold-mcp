@@ -17,6 +17,9 @@ export default function EnterAmount({
   maxValue = 1000,
   onMaxPress,
   onAmountChange,
+  showInput = true,
+  showBottomContext = true,
+  readOnlyInput = false,
 }) {
   // Parse amount as float, divide by 105.345, and format to 4 decimals
   let btc = 0;
@@ -43,31 +46,39 @@ export default function EnterAmount({
         <Text style={styles.topContextText}>{btcDisplay}</Text>
       </View>
       {/* Input amount */}
-      <View style={styles.amountContainer}>
-        <TextInput
-          style={styles.amountText}
-          value={`$${amount.length === 0 ? "0" : amount}`}
-          onChangeText={(text) => {
-            // remove any leading $ if user edits it
-            const cleaned = text.replace(/^\$/, "");
-            handleChange(cleaned);
-          }}
-          keyboardType="numeric"
-          maxLength={12}
-          accessibilityLabel="Amount input"
-          textAlign="center"
-        />
-      </View>
+      {showInput && (
+        <View style={styles.amountContainer}>
+          <TextInput
+            style={styles.amountText}
+            value={`$${amount.length === 0 ? "0" : amount}`}
+            onChangeText={(text) => {
+              if (!readOnlyInput) {
+                // remove any leading $ if user edits it
+                const cleaned = text.replace(/^\$/, "");
+                handleChange(cleaned);
+              }
+            }}
+            keyboardType="numeric"
+            maxLength={12}
+            accessibilityLabel="Amount input"
+            textAlign="center"
+            editable={!readOnlyInput}
+            selectTextOnFocus={!readOnlyInput}
+          />
+        </View>
+      )}
       {/* Bottom context: Max chip button */}
-      <View style={styles.bottomContextContainer}>
-        <Button
-          type="default"
-          spacing="compact"
-          onPress={() => onMaxPress(formattedMax)}
-          title={`Max: $${formattedMax}`}
-          style={{ alignSelf: "center" }}
-        />
-      </View>
+      {showBottomContext && (
+        <View style={styles.bottomContextContainer}>
+          <Button
+            type="default"
+            spacing="compact"
+            onPress={() => onMaxPress(formattedMax)}
+            title={`Max: $${formattedMax}`}
+            style={{ alignSelf: "center" }}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -75,6 +86,7 @@ export default function EnterAmount({
 const styles = StyleSheet.create({
   container: {
     height: "100%",
+    maxHeight: 266, // Limit height for better UX
     width: "100%",
     backgroundColor: LayerBackground,
     alignItems: "flex-start	",

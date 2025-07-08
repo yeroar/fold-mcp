@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import NavigationTopBar from "./components/NavigationTopBar";
+import EnterAmount from "./components/EnterAmount";
 import Button from "./components/Button";
-import AmountWrapperStyles from "./components/AmountWrapperStyles";
-import { LayerBackground } from "./components/generated-tokens/tokens";
+import { LayerBackground, M4 } from "./components/generated-tokens/tokens";
 
 export default function PreviewBuyScreen({ navigation, route }) {
   // Get the amount passed from navigation
@@ -19,16 +19,12 @@ export default function PreviewBuyScreen({ navigation, route }) {
           accessibilityLabel: "Go back",
         }}
       />
-      <View style={AmountWrapperStyles.amountWrapper}>
-        <Text style={styles.label}>Amount to Buy:</Text>
-        <Text style={styles.amount}>{amount || "$0.00"}</Text>
-        {/* Add more order details here if needed */}
-      </View>
+      <EnterAmount amount={amount} showInput={true} readOnlyInput={true} showBottomContext={false} />
       <View style={styles.tokenButtonRow}>
         <Button
           type="brand"
           spacing="default"
-          title="Confirm Buy"
+          title="Confirm"
           style={{ width: "100%" }}
           onPress={() => {
             // TODO: handle confirm action
@@ -36,6 +32,7 @@ export default function PreviewBuyScreen({ navigation, route }) {
           }}
         />
       </View>
+      {/* Add more order details here if needed */}
     </View>
   );
 }
@@ -51,19 +48,10 @@ const styles = StyleSheet.create({
   },
   tokenButtonRow: {
     width: "100%",
-    paddingHorizontal: 16, // fallback if M4 not available
+    paddingHorizontal: Number(M4),
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 40,
     marginTop: 32,
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  amount: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#2e7d32",
   },
 });
