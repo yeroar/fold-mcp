@@ -8,6 +8,7 @@ import {
   FaceSubtlest,
   TypographyBalance01,
   TypographyBody02,
+  ObjectBrandBoldDefault,
 } from "./generated-tokens/tokens";
 import { formatAmountInput } from "./utils/formatAmountInput";
 import Button from "./Button";
@@ -85,14 +86,11 @@ export default function EnterAmount({
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    maxHeight: 266, // Limit height for better UX
     width: "100%",
     backgroundColor: LayerBackground,
     alignItems: "flex-start	",
     justifyContent: "center",
     paddingHorizontal: Number(M4),
-    paddingVertical: Number(M6),
     borderRadius: 12, // Optional for pill/modal look
   },
   topContextContainer: {

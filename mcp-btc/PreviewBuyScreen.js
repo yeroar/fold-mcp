@@ -24,6 +24,8 @@ import Animated, {
   withTiming,
   runOnJS,
 } from "react-native-reanimated";
+import Receipt from "./components/Receipt";
+import AmountWrapperStyles from "./components/AmountWrapperStyles";
 
 const paymentMethods = [
   {
@@ -146,19 +148,26 @@ export default function PreviewBuyScreen({ navigation, route }) {
             accessibilityLabel: "Go back",
           }}
         />
-        <EnterAmount
-          amount={amount}
-          showInput={true}
-          readOnlyInput={true}
-          showBottomContext={false}
-        />
-        <View style={styles.pmTileRow}>
+        <View style={AmountWrapperStyles.amountWrapper}>
+          <EnterAmount
+            amount={amount}
+            showInput={true}
+            readOnlyInput={true}
+            showBottomContext={false}
+            style={AmountWrapperStyles.amountWrapper}
+          />
+        </View>
+        <View style={styles.infoWrapper}>
           <PmTile
             isSelected={!!selectedPm}
             empty={!selectedPm}
             icon={selectedPm ? selectedPm.icon : undefined}
             title={selectedPm ? selectedPm.title : undefined}
             onPress={() => setPmSheetVisible(true)}
+          />
+          <Receipt
+            amount={amount}
+            paymentMethod={selectedPm ? selectedPm.title : undefined}
           />
         </View>
         <View style={styles.tokenButtonRow}>
@@ -212,7 +221,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 40,
-    marginTop: 32,
   },
   tokenButtonRow: {
     width: "100%",
@@ -221,5 +229,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 40,
     marginTop: 32,
+  },
+  infoWrapper: {
+    // Remove flex: 1 so it doesn't stretch and hide content
+    flex: 1,
+    paddingHorizontal: Number(M4),
+    alignItems: "start",
+    justifyContent: "center",
+    marginBottom: 40,
   },
 });
