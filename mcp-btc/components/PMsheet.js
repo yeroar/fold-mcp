@@ -30,43 +30,75 @@ function PmSheetRow({ icon, title, subtitle, subsubtitle, onPress }) {
   );
 }
 
-export default function PMsheet() {
+const paymentMethods = [
+  {
+    key: "bank",
+    icon: (
+      <View
+        style={{
+          backgroundColor: "#f7f2de",
+          borderRadius: 12,
+          padding: 0,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          source={{
+            uri: "https://cdn-icons-png.flaticon.com/128/522/522554.png",
+          }}
+          style={{ width: 20, height: 20 }}
+        />
+      </View>
+    ),
+    title: "Bank account",
+    subtitle: "Fund your purchase via ACH",
+    subsubtitle: "Deposit fee waved",
+  },
+  {
+    key: "card",
+    icon: (
+      <View
+        style={{
+          backgroundColor: "#f7f2de",
+          borderRadius: 12,
+          padding: 0,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          source={{
+            uri: "https://cdn-icons-png.flaticon.com/128/5343/5343102.png",
+          }}
+          style={{ width: 20, height: 20 }}
+        />
+      </View>
+    ),
+    title: "Debit card",
+    subtitle: "Link your debit card",
+    subsubtitle: "n.n% deposit fee ($n.nn min)",
+  },
+];
+
+export default function PMsheet({ onSelect }) {
   return (
     <View style={styles.sheet}>
       <Grabber />
       <Text style={styles.title}>Add payment method</Text>
       <View style={styles.tableWrap}>
-        <PmSheetRow
-          icon={
-            <View style={styles.bankIcon}>
-              <Image
-                source={{
-                  uri: "https://cdn-icons-png.flaticon.com/128/522/522554.png",
-                }}
-                style={{ width: 20, height: 20 }}
-              />
-            </View>
-          }
-          title="Bank account"
-          subtitle="Fund your purchase via ACH"
-          subsubtitle="Deposit fee waved"
-        />
-        <View style={styles.divider} />
-        <PmSheetRow
-          icon={
-            <View style={styles.cardIcon}>
-              <Image
-                source={{
-                  uri: "https://cdn-icons-png.flaticon.com/128/5343/5343102.png",
-                }}
-                style={{ width: 20, height: 20 }}
-              />
-            </View>
-          }
-          title="Debit card"
-          subtitle="Link your debit card"
-          subsubtitle="n.n% deposit fee ($n.nn min)"
-        />
+        {paymentMethods.map((pm) => (
+          <React.Fragment key={pm.key}>
+            <PmSheetRow
+              icon={pm.icon}
+              title={pm.title}
+              subtitle={pm.subtitle}
+              subsubtitle={pm.subsubtitle}
+              onPress={() => onSelect && onSelect(pm)}
+            />
+            {pm.key === "bank" && <View style={styles.divider} />}
+          </React.Fragment>
+        ))}
       </View>
     </View>
   );
@@ -123,20 +155,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     marginRight: 16,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  bankIcon: {
-    backgroundColor: "#f7f2de",
-    borderRadius: 12,
-    padding: 0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cardIcon: {
-    backgroundColor: "#f7f2de",
-    borderRadius: 12,
-    padding: 0,
     alignItems: "center",
     justifyContent: "center",
   },

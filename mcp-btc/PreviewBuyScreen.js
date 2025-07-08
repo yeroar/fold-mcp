@@ -7,10 +7,61 @@ import PmTile from "./components/PmTile";
 import PMsheet from "./components/PMsheet";
 import { LayerBackground, M4 } from "./components/generated-tokens/tokens";
 
+const paymentMethods = [
+  {
+    key: "bank",
+    icon: (
+      <View
+        style={{
+          backgroundColor: "#f7f2de",
+          borderRadius: 12,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src="https://cdn-icons-png.flaticon.com/128/522/522554.png"
+          style={{ width: 20, height: 20 }}
+          alt="bank"
+        />
+      </View>
+    ),
+    title: "Bank account",
+    subtitle: "Fund your purchase via ACH",
+  },
+  {
+    key: "card",
+    icon: (
+      <View
+        style={{
+          backgroundColor: "#f7f2de",
+          borderRadius: 12,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src="https://cdn-icons-png.flaticon.com/128/5343/5343102.png"
+          style={{ width: 20, height: 20 }}
+          alt="card"
+        />
+      </View>
+    ),
+    title: "Debit card",
+    subtitle: "Link your debit card",
+  },
+];
+
 export default function PreviewBuyScreen({ navigation, route }) {
   // Get the amount passed from navigation
   const { amount } = route.params || {};
   const [pmSheetVisible, setPmSheetVisible] = useState(false);
+  const [selectedPm, setSelectedPm] = useState(null);
+
+  const handleSelectPm = (pm) => {
+    setSelectedPm(pm);
+    setPmSheetVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -30,8 +81,10 @@ export default function PreviewBuyScreen({ navigation, route }) {
       />
       <View style={styles.pmTileRow}>
         <PmTile
-          isSelected={false}
-          empty={true}
+          isSelected={!!selectedPm}
+          empty={!selectedPm}
+          icon={selectedPm ? selectedPm.icon : undefined}
+          title={selectedPm ? selectedPm.title : undefined}
           onPress={() => setPmSheetVisible(true)}
         />
       </View>
@@ -47,7 +100,6 @@ export default function PreviewBuyScreen({ navigation, route }) {
           }}
         />
       </View>
-      {/* Add more order details here if needed */}
       <Modal
         visible={pmSheetVisible}
         animationType="slide"
@@ -61,7 +113,11 @@ export default function PreviewBuyScreen({ navigation, route }) {
             backgroundColor: "rgba(0,0,0,0.3)",
           }}
         >
-          <PMsheet />
+          <View
+            style={{ flex: 1 }}
+            onTouchEnd={() => setPmSheetVisible(false)}
+          />
+          <PMsheet onSelect={handleSelectPm} />
         </View>
       </Modal>
     </View>

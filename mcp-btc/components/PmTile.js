@@ -2,8 +2,14 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import Icon from "./Icon";
 
-// Props: isSelected (bool), onPress (function), empty (bool)
-export default function PmTile({ isSelected = false, onPress, empty = true }) {
+// Props: isSelected (bool), onPress (function), empty (bool), icon (ReactNode), title (string)
+export default function PmTile({
+  isSelected = false,
+  onPress,
+  empty = true,
+  icon,
+  title,
+}) {
   return (
     <Pressable
       style={({ pressed }) => [
@@ -13,14 +19,14 @@ export default function PmTile({ isSelected = false, onPress, empty = true }) {
       ]}
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel="Add a payment method"
+      accessibilityLabel={title || "Add a payment method"}
     >
       <View style={styles.innerRow}>
         <View style={styles.iconSlot}>
-          <Icon type="chevron-back" size={20} color="#454F59" />
+          {icon ? icon : <Icon type="chevron-back" size={20} color="#454F59" />}
         </View>
         <View style={styles.textCol}>
-          <Text style={styles.title}>Add a payment method</Text>
+          <Text style={styles.title}>{title || "Add a payment method"}</Text>
         </View>
         <View style={styles.chevronSlot}>
           <Icon type="chevron-back" size={20} color="#454F59" />
