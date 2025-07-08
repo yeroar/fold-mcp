@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 import NavigationTopBar from "./components/NavigationTopBar";
 import EnterAmount from "./components/EnterAmount";
 import Button from "./components/Button";
+import PmTile from "./components/PmTile";
 import { LayerBackground, M4 } from "./components/generated-tokens/tokens";
 
 export default function PreviewBuyScreen({ navigation, route }) {
@@ -19,7 +20,22 @@ export default function PreviewBuyScreen({ navigation, route }) {
           accessibilityLabel: "Go back",
         }}
       />
-      <EnterAmount amount={amount} showInput={true} readOnlyInput={true} showBottomContext={false} />
+      <EnterAmount
+        amount={amount}
+        showInput={true}
+        readOnlyInput={true}
+        showBottomContext={false}
+      />
+      <View style={styles.pmTileRow}>
+        <PmTile
+          isSelected={false}
+          empty={true}
+          onPress={() => {
+            // TODO: open bottom sheet for payment method selection
+            console.log("Open payment method bottom sheet");
+          }}
+        />
+      </View>
       <View style={styles.tokenButtonRow}>
         <Button
           type="brand"
@@ -45,6 +61,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "stretch",
     width: "100%",
+  },
+  pmTileRow: {
+    width: "100%",
+    paddingHorizontal: Number(M4),
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 40,
+    marginTop: 32,
   },
   tokenButtonRow: {
     width: "100%",
