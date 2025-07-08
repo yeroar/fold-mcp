@@ -94,6 +94,7 @@ export default function PreviewBuyScreen({ navigation, route }) {
           spacing="default"
           title="Confirm"
           style={{ width: "100%" }}
+          disabled={!selectedPm}
           onPress={() => {
             // TODO: handle confirm action
             console.log("Confirmed buy for amount:", amount);
