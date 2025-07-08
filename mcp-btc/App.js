@@ -20,6 +20,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import PreviewBuyScreen from "./PreviewBuyScreen";
 import LoadingScreen from "./components/LoadingScreen";
+import SuccessScreen from "./SuccessScreen";
 
 const Stack = createStackNavigator();
 
@@ -101,6 +102,7 @@ export default function App() {
         <Stack.Screen name="Buy" component={BuyScreen} />
         <Stack.Screen name="PreviewBuy" component={PreviewBuyScreen} />
         <Stack.Screen name="Loading" component={LoadingScreen} />
+        <Stack.Screen name="Success" component={SuccessScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

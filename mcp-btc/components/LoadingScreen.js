@@ -26,6 +26,11 @@ export default function LoadingScreen({ navigation }) {
         useNativeDriver: true,
       }),
     ]).start();
+    // Navigate to Success after 2 seconds
+    const timeout = setTimeout(() => {
+      navigation.replace("Success");
+    }, 2000);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
