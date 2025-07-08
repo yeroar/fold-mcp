@@ -4,17 +4,13 @@ import {
   LayerBackground,
   M4,
   M6,
-  ObjectBrandSubtleDefault,
   FaceDefault,
-  FontFamiliesGeist,
-  LayerBackgroundPressed,
-  TypographyBalance01,
-  FaceDisabled,
   FaceSubtlest,
+  TypographyBalance01,
   TypographyBody02,
 } from "./generated-tokens/tokens";
 import { formatAmountInput } from "./utils/formatAmountInput";
-import MaxButton from "./MaxButton";
+import Button from "./Button";
 
 export default function EnterAmount({
   amount = "0.00",
@@ -62,11 +58,14 @@ export default function EnterAmount({
           textAlign="center"
         />
       </View>
-      {/* Bottom context: Max button */}
+      {/* Bottom context: Max chip button */}
       <View style={styles.bottomContextContainer}>
-        <MaxButton
+        <Button
+          type="default"
+          spacing="compact"
           onPress={() => onMaxPress(formattedMax)}
-          label={`Max: $${formattedMax}`}
+          title={`Max: $${formattedMax}`}
+          style={{ alignSelf: "center" }}
         />
       </View>
     </View>
@@ -113,6 +112,8 @@ const styles = StyleSheet.create({
     color: FaceDefault,
   },
   bottomContextContainer: {
+    flexDirection: "column",
     alignItems: "center",
+    justifyContent: "center", // Add this for vertical centering if needed
   },
 });

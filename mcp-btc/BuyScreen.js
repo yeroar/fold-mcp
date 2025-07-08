@@ -1,42 +1,28 @@
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import CustomKeyboard from "./components/CustomKeyboard";
 import EnterAmount from "./components/EnterAmount";
-import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
-import {
-  LayerBackground,
-  M4,
-  ObjectBrandBoldDefault,
-  ObjectDisabled,
-} from "./components/generated-tokens/tokens";
 import Button from "./components/Button";
+import NavigationTopBar from "./components/NavigationTopBar";
+import { LayerBackground, M4 } from "./components/generated-tokens/tokens";
 import {
   formatAmountInput,
   prependAmountInput,
 } from "./components/utils/formatAmountInput";
-import NavigationTopBar from "./components/NavigationTopBar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import PreviewBuyScreen from "./PreviewBuyScreen";
+import AmountWrapperStyles from "./components/AmountWrapperStyles";
 
-const Stack = createStackNavigator();
-
-function BuyScreen({ navigation }) {
+export default function BuyScreen({ navigation }) {
   const [input, setInput] = useState("");
-
-  // Calculate if the preview button should be disabled (empty or < $10.00)
   const cleaned = input.replace(/[^0-9.]/g, "");
   const parsedAmount = parseFloat(cleaned);
   const isPreviewDisabled = isNaN(parsedAmount) || parsedAmount < 10;
 
-  // Pass key presses from custom keyboard to EnterAmount
   const handleCustomKeyPress = (key) => {
     setInput((prev) => {
       let text = prev;
       if (key === "←") {
         text = text.slice(0, -1);
       } else if (/^[0-9]$/.test(key) && /^0\.\d{2}$/.test(text)) {
-        // Prepend digit if current is '0.N' or '0.NN'
         text = prependAmountInput(key, text);
       } else {
         text += key;
@@ -55,14 +41,11 @@ function BuyScreen({ navigation }) {
         title="Buy bitcoin"
         leadingIcon={{
           iconType: "chevron-back",
-          onPress: () => {
-            // handle back
-            navigation.goBack?.();
-          },
+          onPress: () => navigation.goBack?.(),
           accessibilityLabel: "Go back",
         }}
       />
-      <View style={styles.amountWrapper}>
+      <View style={AmountWrapperStyles.amountWrapper}>
         <EnterAmount
           amount={input}
           onMaxPress={handleMaxPress}
@@ -70,11 +53,9 @@ function BuyScreen({ navigation }) {
           onAmountChange={setInput}
         />
       </View>
-
       <View style={styles.keyboardAnchor}>
         <CustomKeyboard onKeyPress={handleCustomKeyPress} />
       </View>
-
       <View style={styles.tokenButtonRow}>
         <Button
           type="brand"
@@ -82,24 +63,13 @@ function BuyScreen({ navigation }) {
           title="Preview buy"
           style={{ width: "100%" }}
           disabled={isPreviewDisabled}
-          onPress={() => navigation.navigate("PreviewBuy", { amount: input })}
+          onPress={() => {
+            console.log("Navigating to PreviewBuy with amount:", input);
+            navigation.navigate("PreviewBuy", { amount: input });
+          }}
         />
       </View>
-
-      <StatusBar style="auto" />
     </View>
-  );
-}
-
-// Main app entry point
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Buy" component={BuyScreen} />
-        <Stack.Screen name="PreviewBuy" component={PreviewBuyScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
   );
 }
 
@@ -107,19 +77,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: LayerBackground, // Use LayerBackground, not ObjectBrandBoldDefault
-    justifyContent: "flex-end", // or 'space-between' for spacing
+    backgroundColor: LayerBackground,
+    justifyContent: "flex-end",
     alignItems: "stretch",
     width: "100%",
   },
-  amountWrapper: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    // width: "100%", // Remove for stretch
-  },
   keyboardAnchor: {
-    // width: "100%", // Remove for stretch
     alignItems: "center",
   },
   tokenButtonRow: {
