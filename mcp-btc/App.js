@@ -1,6 +1,7 @@
+import "react-native-gesture-handler";
+import React from "react";
 import CustomKeyboard from "./components/CustomKeyboard";
 import EnterAmount from "./components/EnterAmount";
-import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import {
@@ -18,11 +19,12 @@ import NavigationTopBar from "./components/NavigationTopBar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import PreviewBuyScreen from "./PreviewBuyScreen";
+import LoadingScreen from "./components/LoadingScreen";
 
 const Stack = createStackNavigator();
 
 function BuyScreen({ navigation }) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = React.useState("");
 
   // Calculate if the preview button should be disabled (empty or < $10.00)
   const cleaned = input.replace(/[^0-9.]/g, "");
@@ -98,6 +100,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Buy" component={BuyScreen} />
         <Stack.Screen name="PreviewBuy" component={PreviewBuyScreen} />
+        <Stack.Screen name="Loading" component={LoadingScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,11 +1,29 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Modal } from "react-native";
+import React, { useState, useRef } from "react";
+import {
+  View,
+  StyleSheet,
+  Modal,
+  Dimensions,
+  findNodeHandle,
+} from "react-native";
 import NavigationTopBar from "./components/NavigationTopBar";
 import EnterAmount from "./components/EnterAmount";
 import Button from "./components/Button";
 import PmTile from "./components/PmTile";
 import PMsheet from "./components/PMsheet";
-import { LayerBackground, M4 } from "./components/generated-tokens/tokens";
+import {
+  LayerBackground,
+  M4,
+  ObjectBrandBoldDefault,
+} from "./components/generated-tokens/tokens";
+import LoadingScreen from "./components/LoadingScreen";
+import MaskedView from "@react-native-masked-view/masked-view";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  runOnJS,
+} from "react-native-reanimated";
 
 const paymentMethods = [
   {
@@ -53,53 +71,107 @@ const paymentMethods = [
 ];
 
 export default function PreviewBuyScreen({ navigation, route }) {
-  // Get the amount passed from navigation
   const { amount } = route.params || {};
   const [pmSheetVisible, setPmSheetVisible] = useState(false);
   const [selectedPm, setSelectedPm] = useState(null);
+  const [confirmDisabled, setConfirmDisabled] = useState(false);
+  const [reveal, setReveal] = useState(false);
+  const [buttonLayout, setButtonLayout] = useState(null);
+  const revealRadius = useSharedValue(0);
+  const screen = Dimensions.get("window");
 
   const handleSelectPm = (pm) => {
     setSelectedPm(pm);
     setPmSheetVisible(false);
   };
 
+  const handleConfirm = () => {
+    setConfirmDisabled(true);
+    setReveal(true);
+    // Calculate max radius from button center to farthest corner
+    if (!buttonLayout) return;
+    const { x, y, width, height } = buttonLayout;
+    const cx = x + width / 2;
+    const cy = y + height / 2;
+    const distances = [
+      Math.hypot(cx, cy),
+      Math.hypot(screen.width - cx, cy),
+      Math.hypot(cx, screen.height - cy),
+      Math.hypot(screen.width - cx, screen.height - cy),
+    ];
+    const finalRadius = Math.max(...distances);
+    revealRadius.value = 0;
+    revealRadius.value = withTiming(finalRadius, { duration: 1000 }, () => {
+      runOnJS(navigation.replace)("Loading");
+    });
+  };
+
+  const animatedMaskStyle = useAnimatedStyle(() => {
+    if (!buttonLayout) return { width: 0, height: 0, borderRadius: 0 };
+    const { x, y, width, height } = buttonLayout;
+    const cx = x + width / 2;
+    const cy = y + height / 2;
+    return {
+      position: "absolute",
+      left: cx - revealRadius.value,
+      top: cy - revealRadius.value,
+      width: revealRadius.value * 2,
+      height: revealRadius.value * 2,
+      borderRadius: revealRadius.value,
+      backgroundColor: "#FFD600",
+    };
+  });
+
   return (
     <View style={styles.container}>
-      <NavigationTopBar
-        title="Order Preview"
-        leadingIcon={{
-          iconType: "chevron-back",
-          onPress: () => navigation.goBack?.(),
-          accessibilityLabel: "Go back",
-        }}
-      />
-      <EnterAmount
-        amount={amount}
-        showInput={true}
-        readOnlyInput={true}
-        showBottomContext={false}
-      />
-      <View style={styles.pmTileRow}>
-        <PmTile
-          isSelected={!!selectedPm}
-          empty={!selectedPm}
-          icon={selectedPm ? selectedPm.icon : undefined}
-          title={selectedPm ? selectedPm.title : undefined}
-          onPress={() => setPmSheetVisible(true)}
-        />
-      </View>
-      <View style={styles.tokenButtonRow}>
-        <Button
-          type="brand"
-          spacing="default"
-          title="Confirm"
-          style={{ width: "100%" }}
-          disabled={!selectedPm}
-          onPress={() => {
-            // TODO: handle confirm action
-            console.log("Confirmed buy for amount:", amount);
+      {reveal && buttonLayout ? (
+        <MaskedView
+          style={StyleSheet.absoluteFill}
+          maskElement={<Animated.View style={animatedMaskStyle} />}
+        >
+          <View
+            style={[
+              StyleSheet.absoluteFill,
+              { backgroundColor: ObjectBrandBoldDefault },
+            ]}
+          />
+        </MaskedView>
+      ) : null}
+      <View style={{ flex: 1, opacity: reveal ? 0 : 1 }}>
+        <NavigationTopBar
+          title="Order Preview"
+          leadingIcon={{
+            iconType: "chevron-back",
+            onPress: () => navigation.goBack?.(),
+            accessibilityLabel: "Go back",
           }}
         />
+        <EnterAmount
+          amount={amount}
+          showInput={true}
+          readOnlyInput={true}
+          showBottomContext={false}
+        />
+        <View style={styles.pmTileRow}>
+          <PmTile
+            isSelected={!!selectedPm}
+            empty={!selectedPm}
+            icon={selectedPm ? selectedPm.icon : undefined}
+            title={selectedPm ? selectedPm.title : undefined}
+            onPress={() => setPmSheetVisible(true)}
+          />
+        </View>
+        <View style={styles.tokenButtonRow}>
+          <Button
+            type="brand"
+            spacing="default"
+            title="Confirm"
+            style={{ width: "100%" }}
+            disabled={!selectedPm || confirmDisabled}
+            onPress={handleConfirm}
+            onLayout={(e) => setButtonLayout(e.nativeEvent.layout)}
+          />
+        </View>
       </View>
       <Modal
         visible={pmSheetVisible}
