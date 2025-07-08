@@ -1,14 +1,16 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Modal } from "react-native";
 import NavigationTopBar from "./components/NavigationTopBar";
 import EnterAmount from "./components/EnterAmount";
 import Button from "./components/Button";
 import PmTile from "./components/PmTile";
+import PMsheet from "./components/PMsheet";
 import { LayerBackground, M4 } from "./components/generated-tokens/tokens";
 
 export default function PreviewBuyScreen({ navigation, route }) {
   // Get the amount passed from navigation
   const { amount } = route.params || {};
+  const [pmSheetVisible, setPmSheetVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -30,10 +32,7 @@ export default function PreviewBuyScreen({ navigation, route }) {
         <PmTile
           isSelected={false}
           empty={true}
-          onPress={() => {
-            // TODO: open bottom sheet for payment method selection
-            console.log("Open payment method bottom sheet");
-          }}
+          onPress={() => setPmSheetVisible(true)}
         />
       </View>
       <View style={styles.tokenButtonRow}>
@@ -49,6 +48,22 @@ export default function PreviewBuyScreen({ navigation, route }) {
         />
       </View>
       {/* Add more order details here if needed */}
+      <Modal
+        visible={pmSheetVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setPmSheetVisible(false)}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            backgroundColor: "rgba(0,0,0,0.3)",
+          }}
+        >
+          <PMsheet />
+        </View>
+      </Modal>
     </View>
   );
 }
