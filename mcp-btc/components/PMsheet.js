@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import {
   LayerBackground,
   ObjectBrandBoldDefault,
@@ -9,7 +9,10 @@ import {
   M4,
   M5,
   M6,
+  IconBank,
+  IconDebitCard,
 } from "./generated-tokens/tokens";
+import Icon from "./Icon";
 
 function Grabber() {
   return <View style={styles.grabber} />;
@@ -43,12 +46,7 @@ const paymentMethods = [
           justifyContent: "center",
         }}
       >
-        <Image
-          source={{
-            uri: "https://cdn-icons-png.flaticon.com/128/522/522554.png",
-          }}
-          style={{ width: 20, height: 20 }}
-        />
+        <Icon type="custom" size={20} source={IconBank} />
       </View>
     ),
     title: "Bank account",
@@ -67,12 +65,7 @@ const paymentMethods = [
           justifyContent: "center",
         }}
       >
-        <Image
-          source={{
-            uri: "https://cdn-icons-png.flaticon.com/128/5343/5343102.png",
-          }}
-          style={{ width: 20, height: 20 }}
-        />
+        <Icon type="custom" size={20} source={IconDebitCard} />
       </View>
     ),
     title: "Debit card",
@@ -111,7 +104,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     paddingTop: 16,
     paddingBottom: 48,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     alignItems: "center",
     width: "100%",
   },

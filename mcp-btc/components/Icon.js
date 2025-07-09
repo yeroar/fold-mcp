@@ -16,7 +16,13 @@ import {
  * @param {string} props.color - Icon color (default: FaceDefault)
  * @param {Object} props.style - Additional styles
  */
-export default function Icon({ type, size = 24, color = FaceDefault, style, source }) {
+export default function Icon({
+  type,
+  size = 24,
+  color = FaceDefault,
+  style,
+  source,
+}) {
   const renderIcon = () => {
     switch (type) {
       case "chevron-back":

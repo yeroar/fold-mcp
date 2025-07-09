@@ -6,6 +6,7 @@ import {
   ObjectNeutralDefaultDefault,
   ObjectBrandBoldDefault,
   IconForwards,
+  IconInfo,
 } from "./generated-tokens/tokens";
 
 // Props: isSelected (bool), onPress (function), empty (bool), icon (ReactNode), title (string)
@@ -38,7 +39,7 @@ export default function PmTile({
               type="custom"
               size={16}
               color="#454F59"
-              source={IconForwards}
+              source={IconInfo}
               style={styles.icon}
             />
           )}

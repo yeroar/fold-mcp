@@ -347,6 +347,9 @@ export const IconBackspace =
 export const IconBank = "https://cdn-icons-png.flaticon.com/128/522/522554.png";
 export const IconForwards =
   "https://cdn-icons-png.flaticon.com/128/5343/5343102.png";
+export const IconInfo = "https://img.icons8.com/?size=100&id=77&format=png";
+export const IconDebitCard =
+  "https://img.icons8.com/?size=100&id=22127&format=png";
 export const M3 = "12";
 export const M4 = "16";
 export const M6 = "24";
