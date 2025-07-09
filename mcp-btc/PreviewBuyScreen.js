@@ -104,7 +104,7 @@ export default function PreviewBuyScreen({ navigation, route }) {
     const finalRadius = Math.max(...distances);
     revealRadius.value = 0;
     revealRadius.value = withTiming(finalRadius, { duration: 1000 }, () => {
-      runOnJS(navigation.replace)("Loading");
+      runOnJS(navigation.replace)("Loading", { amount });
     });
   };
 
@@ -139,7 +139,12 @@ export default function PreviewBuyScreen({ navigation, route }) {
           />
         </MaskedView>
       ) : null}
-      <View style={{ flex: 1, opacity: reveal ? 0 : 1 }}>
+      <View
+        style={{
+          flex: 1,
+          opacity: reveal ? 0 : 1,
+        }}
+      >
         <NavigationTopBar
           title="Order Preview"
           leadingIcon={{
@@ -154,7 +159,6 @@ export default function PreviewBuyScreen({ navigation, route }) {
             showInput={true}
             readOnlyInput={true}
             showBottomContext={false}
-            style={AmountWrapperStyles.amountWrapper}
           />
         </View>
         <View style={styles.infoWrapper}>
@@ -215,13 +219,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     width: "100%",
   },
-  pmTileRow: {
-    width: "100%",
-    paddingHorizontal: Number(M4),
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 40,
-  },
+
   tokenButtonRow: {
     width: "100%",
     paddingHorizontal: Number(M4),
@@ -235,7 +233,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: Number(M4),
     alignItems: "start",
-    justifyContent: "center",
+    justifyContent: "start",
     marginBottom: 40,
   },
 });

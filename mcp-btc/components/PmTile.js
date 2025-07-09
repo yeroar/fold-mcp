@@ -1,6 +1,12 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import Icon from "./Icon";
+import {
+  M4,
+  ObjectNeutralDefaultDefault,
+  ObjectBrandBoldDefault,
+  IconForwards,
+} from "./generated-tokens/tokens";
 
 // Props: isSelected (bool), onPress (function), empty (bool), icon (ReactNode), title (string)
 export default function PmTile({
@@ -12,24 +18,41 @@ export default function PmTile({
 }) {
   return (
     <Pressable
-      style={({ pressed }) => [
-        styles.container,
-        pressed && styles.pressed,
-        isSelected && styles.selected,
-      ]}
+      style={({ pressed }) => [styles.container, pressed && styles.pressed]}
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={title || "Add a payment method"}
     >
       <View style={styles.innerRow}>
-        <View style={styles.iconSlot}>
-          {icon ? icon : <Icon type="chevron-back" size={20} color="#454F59" />}
+        <View
+          style={[
+            styles.iconSlot,
+            empty && { backgroundColor: ObjectBrandBoldDefault },
+            isSelected && { backgroundColor: ObjectNeutralDefaultDefault },
+          ]}
+        >
+          {icon ? (
+            React.cloneElement(icon, { style: styles.icon })
+          ) : (
+            <Icon
+              type="custom"
+              size={16}
+              color="#454F59"
+              source={IconForwards}
+              style={styles.icon}
+            />
+          )}
         </View>
         <View style={styles.textCol}>
           <Text style={styles.title}>{title || "Add a payment method"}</Text>
         </View>
         <View style={styles.chevronSlot}>
-          <Icon type="chevron-back" size={20} color="#454F59" />
+          <Icon
+            type="custom"
+            size={12}
+            source={IconForwards}
+            style={styles.icon}
+          />
         </View>
       </View>
     </Pressable>
@@ -54,23 +77,19 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.85,
   },
-  selected: {
-    borderColor: "#ffdd33",
-    borderWidth: 2,
-  },
+
   innerRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
-    paddingVertical: 24,
-    gap: 16,
+    paddingVertical: 16,
   },
   iconSlot: {
-    backgroundColor: "#ffdd33",
+    backgroundColor: ObjectNeutralDefaultDefault,
     borderRadius: 12,
     padding: 10,
-    marginRight: 8,
+    marginRight: M4,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -90,5 +109,10 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     alignItems: "center",
     justifyContent: "center",
+  },
+  icon: {
+    width: 12,
+    height: 12,
+    resizeMode: "contain",
   },
 });

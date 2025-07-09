@@ -344,6 +344,9 @@ export const ParagraphIndent0 = "0px";
 export const M0 = "0";
 export const IconBackspace =
   "https://cdn-icons-png.flaticon.com/512/318/318218.png";
+export const IconBank = "https://cdn-icons-png.flaticon.com/128/522/522554.png";
+export const IconForwards =
+  "https://cdn-icons-png.flaticon.com/128/5343/5343102.png";
 export const M3 = "12";
 export const M4 = "16";
 export const M6 = "24";

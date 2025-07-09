@@ -16,7 +16,7 @@ import {
  * @param {string} props.color - Icon color (default: FaceDefault)
  * @param {Object} props.style - Additional styles
  */
-export default function Icon({ type, size = 24, color = FaceDefault, style }) {
+export default function Icon({ type, size = 24, color = FaceDefault, style, source }) {
   const renderIcon = () => {
     switch (type) {
       case "chevron-back":
@@ -58,6 +58,18 @@ export default function Icon({ type, size = 24, color = FaceDefault, style }) {
             resizeMode="contain"
           />
         );
+
+      case "custom":
+        if (source) {
+          return (
+            <Image
+              source={{ uri: source }}
+              style={{ width: size, height: size }}
+              resizeMode="contain"
+            />
+          );
+        }
+        return null;
 
       default:
         return null;

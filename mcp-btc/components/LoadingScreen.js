@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import { ObjectBrandBoldDefault } from "./generated-tokens/tokens";
 
-export default function LoadingScreen({ navigation }) {
+export default function LoadingScreen({ navigation, route }) {
+  const { amount } = route.params || {};
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateYAnim = useRef(new Animated.Value(40)).current;
 
@@ -28,7 +29,7 @@ export default function LoadingScreen({ navigation }) {
     ]).start();
     // Navigate to Success after 2 seconds
     const timeout = setTimeout(() => {
-      navigation.replace("Success");
+      navigation.replace("Success", { amount });
     }, 2000);
     return () => clearTimeout(timeout);
   }, []);
