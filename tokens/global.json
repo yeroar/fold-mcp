@@ -333,6 +333,14 @@
     "forwards": {
       "value": "https://cdn-icons-png.flaticon.com/128/5343/5343102.png",
       "type": "asset"
+    },
+    "info": {
+      "value": "https://img.icons8.com/?size=100&id=77&format=png",
+      "type": "asset"
+    },
+    "debitCard": {
+      "value": "https://img.icons8.com/?size=100&id=22127&format=png",
+      "type": "asset"
     }
   },
   "m-3": {
