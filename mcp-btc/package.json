@@ -11,6 +11,7 @@
     "build-tokens": "style-dictionary build"
   },
   "dependencies": {
+    "@figma/code-connect": "^1.3.4",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-navigation/native": "^7.1.14",
     "@react-navigation/stack": "^7.4.2",

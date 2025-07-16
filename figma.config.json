@@ -1,6 +1,6 @@
 {
-  "parser": "react",
-  "include": [
-    "mcp-btc/*.js"
-  ]
+  "codeConnect": {
+    "parser": "react",
+    "include": ["mcp-btc/components/*.js"]
+}
 }
