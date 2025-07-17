@@ -14,13 +14,10 @@ import {
  * @param {function} props.onPress - The function to call when the button is pressed
  */
 export default function KeyboardButton({ label, onPress }) {
-  const [pressed, setPressed] = React.useState(false);
   return (
     <TouchableOpacity
       style={[styles.button, pressed && styles.buttonPressed]}
       onPress={onPress}
-      onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
       activeOpacity={0.85}
     >
       <View style={styles.labelContainer}>
