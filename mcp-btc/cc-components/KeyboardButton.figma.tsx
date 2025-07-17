@@ -26,6 +26,14 @@ figma.connect(
         icon: "icon",
       }),
     },
-    example: (props) => <KeyboardButton />,
+    example: (props) => (
+      <KeyboardButton 
+        onPress={() => {}}
+        labelType={props.labeltype}
+        icon={props.slotIcon}
+      >
+        {props.label}
+      </KeyboardButton>
+    ),
   },
 )
